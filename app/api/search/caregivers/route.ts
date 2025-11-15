@@ -102,19 +102,98 @@ function fallbackAnalysis(query: string): {
   const lowerQuery = query.toLowerCase();
   
   const symptomKeywords = {
+    // Neurological
     'headache': ['Neurology', 'General Medicine'],
+    'migraine': ['Neurology'],
+    'stroke': ['Neurology'],
+    'epilepsy': ['Neurology'],
+    
+    // Cardiovascular - EXPANDED
     'chest pain': ['Cardiology'],
     'heart': ['Cardiology'],
+    'heart problems': ['Cardiology'],
+    'heart disease': ['Cardiology'],
+    'heart attack': ['Cardiology'],
+    'cardiac': ['Cardiology'],
+    'cardiology': ['Cardiology'],
+    'hypertension': ['Cardiology'],
+    'blood pressure': ['Cardiology'],
+    'high blood pressure': ['Cardiology'],
+    'palpitations': ['Cardiology'],
+    'arrhythmia': ['Cardiology'],
+    'angina': ['Cardiology'],
+    'coronary': ['Cardiology'],
+    
+    // Gastrointestinal
     'stomach': ['Gastroenterology'],
+    'gastro': ['Gastroenterology'],
+    'digestion': ['Gastroenterology'],
+    'acid reflux': ['Gastroenterology'],
+    
+    // Dermatological
     'skin': ['Dermatology'],
+    'rash': ['Dermatology'],
+    'acne': ['Dermatology'],
+    'eczema': ['Dermatology'],
+    'allergy': ['Dermatology', 'General Medicine'],
+    
+    // Orthopedic
     'bone': ['Orthopedics'],
     'joint': ['Orthopedics'],
+    'joint pain': ['Orthopedics'],
+    'back pain': ['Orthopedics'],
+    'knee pain': ['Orthopedics'],
+    'fracture': ['Orthopedics'],
+    'arthritis': ['Orthopedics'],
+    
+    // General Medicine
     'fever': ['General Medicine'],
     'cold': ['General Medicine'],
     'cough': ['General Medicine'],
+    'flu': ['General Medicine'],
+    'infection': ['General Medicine'],
+    
+    // Endocrine
     'diabetes': ['Endocrinology'],
+    'thyroid': ['Endocrinology'],
+    'hormone': ['Endocrinology'],
+    
+    // Mental Health
     'anxiety': ['Psychiatry'],
-    'depression': ['Psychiatry']
+    'depression': ['Psychiatry'],
+    'stress': ['Psychiatry'],
+    'mental health': ['Psychiatry'],
+    'counseling': ['Psychiatry'],
+    'therapy': ['Psychiatry'],
+    
+    // Women's Health
+    'pregnancy': ['Gynecology', 'Obstetrics'],
+    'pregnant': ['Gynecology', 'Obstetrics'],
+    'prenatal': ['Gynecology', 'Obstetrics'],
+    'maternity': ['Gynecology', 'Obstetrics'],
+    'delivery': ['Gynecology', 'Obstetrics'],
+    'labor': ['Gynecology', 'Obstetrics'],
+    'gynecology': ['Gynecology'],
+    'menstrual': ['Gynecology'],
+    'period': ['Gynecology'],
+    'pcos': ['Gynecology', 'Endocrinology'],
+    'infertility': ['Gynecology'],
+    
+    // Pediatrics
+    'child': ['Pediatrics'],
+    'baby': ['Pediatrics'],
+    'infant': ['Pediatrics'],
+    'newborn': ['Pediatrics'],
+    'pediatric': ['Pediatrics'],
+    'vaccination': ['Pediatrics', 'General Medicine'],
+    'vaccine': ['Pediatrics', 'General Medicine'],
+    
+    // ENT
+    'ear': ['ENT'],
+    'nose': ['ENT'],
+    'throat': ['ENT'],
+    'sinus': ['ENT'],
+    'hearing': ['ENT']
   };
 
   let symptoms: string[] = [];
@@ -130,19 +209,26 @@ function fallbackAnalysis(query: string): {
     }
   }
 
-  // Determine caregiver type
-  if (lowerQuery.includes('nurse') || lowerQuery.includes('nursing')) {
+  // Determine caregiver type with more comprehensive matching
+  if (lowerQuery.includes('nurse') || lowerQuery.includes('nursing') || lowerQuery.includes('medication') || lowerQuery.includes('wound care')) {
     caregiver_type = 'nurse';
-  } else if (lowerQuery.includes('therapy') || lowerQuery.includes('physiotherapy')) {
+  } else if (lowerQuery.includes('therapy') || lowerQuery.includes('physiotherapy') || lowerQuery.includes('physical therapy') || 
+             lowerQuery.includes('rehabilitation') || lowerQuery.includes('back pain') || lowerQuery.includes('joint pain')) {
     caregiver_type = 'therapist';
-  } else if (lowerQuery.includes('elderly') || lowerQuery.includes('home care')) {
+  } else if (lowerQuery.includes('elderly') || lowerQuery.includes('home care') || lowerQuery.includes('caregiver') || 
+             lowerQuery.includes('personal care') || lowerQuery.includes('companionship')) {
     caregiver_type = 'maid';
+  } else if (lowerQuery.includes('doctor') || lowerQuery.includes('physician') || lowerQuery.includes('specialist') ||
+             lowerQuery.includes('medical') || lowerQuery.includes('diagnosis') || lowerQuery.includes('treatment')) {
+    caregiver_type = 'doctor';
   }
 
-  // Determine urgency
-  if (lowerQuery.includes('emergency') || lowerQuery.includes('urgent') || lowerQuery.includes('severe')) {
+  // Determine urgency with more keywords
+  if (lowerQuery.includes('emergency') || lowerQuery.includes('urgent') || lowerQuery.includes('severe') || 
+      lowerQuery.includes('critical') || lowerQuery.includes('acute') || lowerQuery.includes('immediate')) {
     urgency = 'high';
-  } else if (lowerQuery.includes('mild') || lowerQuery.includes('checkup')) {
+  } else if (lowerQuery.includes('mild') || lowerQuery.includes('checkup') || lowerQuery.includes('routine') || 
+             lowerQuery.includes('consultation') || lowerQuery.includes('preventive')) {
     urgency = 'low';
   }
 
@@ -213,7 +299,7 @@ export async function GET(request: NextRequest) {
           .from('caregivers')
           .select(`
             *,
-            users!inner(first_name, last_name, email, phone, avatar_url)
+            users!inner(first_name, last_name)
           `)
           .eq('is_active', true)
           .eq('is_verified', true);

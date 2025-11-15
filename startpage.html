@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyurSutra - Find Healthcare Professionals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #d97706;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .safe-area-inset-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        
+        .safe-area-inset-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .container-mobile {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .container-mobile {
+                padding: 0 2rem;
+            }
+        }
+        
+        .card-mobile {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-bar {
+            transition: all 0.3s;
+        }
+        
+        .caregiver-card {
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            transition: all 0.2s;
+        }
+        
+        .btn-outline {
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-50 via-green-50 to-teal-50 safe-area-inset-top safe-area-inset-bottom flex flex-col">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100 sticky top-0 z-20">
+        <div class="container-mobile py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="image/bundsutra.jpeg" alt="AyurSutra Logo" class="rounded-xl object-cover transform hover:scale-105 transition-transform duration-200 w-10 h-10">
+                    <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">AyurSutra</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <label class="flex items-center space-x-2 cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4 text-amber-600 border-gray-300 rounded focus:ring-amber-500 transition-colors duration-200" aria-label="Use my location">
+                        <i class="fas fa-map-marker-alt text-gray-500 group-hover:text-amber-600 transition-colors duration-200 w-5 h-5"></i>
+                        <span class="text-sm font-medium text-gray-600 group-hover:text-gray-900 hidden md:block">
+                            Use my location
+                        </span>
+                    </label>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            EN
+                        </button>
+                        <button class="px-3 py-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            HI
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button class="flex items-center space-x-2 text-sm font-semibold text-amber-600 hover:text-amber-700 px-3 py-2 rounded-lg hover:bg-amber-50 transition-all duration-200" aria-label="Sign In">
+                            <i class="fas fa-sign-in-alt w-5 h-5"></i>
+                            <span>Sign In</span>
+                        </button>
+                        <button class="flex items-center space-x-2 bg-amber-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-amber-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-500 transition-all duration-200" aria-label="Sign Up">
+                            <i class="fas fa-user-plus w-5 h-5"></i>
+                            <span>Sign Up</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-20 flex-grow">
+        <div class="container-mobile text-center">
+            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight animate-fade-in">
+                Find the Right Healthcare Professional
+            </h2>
+            <p class="text-lg md:text-2xl text-gray-700 mb-12 max-w-4xl mx-auto leading-relaxed animate-slide-up">
+                Describe your symptoms and get AI-powered recommendations for doctors, nurses, and caregivers near you.
+            </p>
+            <!-- Search Section -->
+            <div class="max-w-3xl mx-auto mb-12 relative">
+                <div class="relative flex items-center">
+                    <div class="search-bar shadow-xl border-2 border-gray-200 focus-within:border-amber-500 bg-white/80 backdrop-blur-sm rounded-2xl pr-12 transition-all duration-300 w-full">
+                        <input type="text" placeholder="Describe your symptoms or health concern..." class="w-full px-6 py-4 bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-500 text-lg">
+                    </div>
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-gray-500 hover:text-amber-600 transition-colors duration-200" aria-label="Voice search">
+                        <i class="fas fa-microphone w-6 h-6"></i>
+                    </button>
+                </div>
+                <button class="mt-4 btn-primary bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-2xl text-base font-semibold shadow-lg transform hover:scale-105 transition-all duration-200">
+                    Diagnose
+                </button>
+            </div>
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="card-mobile bg-amber-50 p-6 rounded-3xl shadow-xl hover:shadow-2xl backdrop-blur-sm bg-opacity-80 transform hover:-translate-y-2 transition-all duration-300 animate-slide-up" style="animation-delay: 0ms">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto bg-white shadow-md">
+                        <i class="fas fa-stethoscope text-amber-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">AI-Powered Search</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Get personalized caregiver recommendations based on your symptoms and location.</p>
+                </div>
+                <div class="card-mobile bg-green-50 p-6 rounded-3xl shadow-xl hover:shadow-2xl backdrop-blur-sm bg-opacity-80 transform hover:-translate-y-2 transition-all duration-300 animate-slide-up" style="animation-delay: 100ms">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto bg-white shadow-md">
+                        <i class="fas fa-shield-alt text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Secure & Private</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Your medical data is encrypted end-to-end and stored securely.</p>
+                </div>
+                <div class="card-mobile bg-teal-50 p-6 rounded-3xl shadow-xl hover:shadow-2xl backdrop-blur-sm bg-opacity-80 transform hover:-translate-y-2 transition-all duration-300 animate-slide-up" style="animation-delay: 200ms">
+                    <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto bg-white shadow-md">
+                        <i class="fas fa-users text-teal-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Bilingual Support</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Available in English and Hindi for better accessibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results (Hidden by default) -->
+    <section class="py-16 bg-white/30 backdrop-blur-sm hidden" id="search-results">
+        <div class="container-mobile">
+            <div class="flex items-center justify-between mb-10">
+                <h3 class="text-3xl font-bold text-gray-900">
+                    Search Results (3)
+                </h3>
+                <button class="btn-outline border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white text-sm font-semibold px-6 py-2 rounded-xl transition-all duration-200">
+                    New Search
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Caregiver Card 1 -->
+                <div class="caregiver-card bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 animate-slide-up p-6" style="animation-delay: 0ms">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://via.placeholder.com/50" alt="Dr. Sharma" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold text-gray-900">Dr. Rajesh Sharma</h4>
+                                <p class="text-sm text-gray-600">Cardiologist</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">
+                            92% Match
+                        </div>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 mb-4">
+                        <i class="fas fa-map-marker-alt text-amber-500 mr-1"></i>
+                        <span>2.3 km away</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-4">Specializes in cardiovascular conditions with 15 years of experience.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-amber-600 font-semibold">₹800/session</span>
+                        <button class="bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Caregiver Card 2 -->
+                <div class="caregiver-card bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 animate-slide-up p-6" style="animation-delay: 100ms">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://via.placeholder.com/50" alt="Nurse Patel" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold text-gray-900">Nurse Priya Patel</h4>
+                                <p class="text-sm text-gray-600">Registered Nurse</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">
+                            87% Match
+                        </div>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 mb-4">
+                        <i class="fas fa-map-marker-alt text-amber-500 mr-1"></i>
+                        <span>1.7 km away</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-4">Expert in post-operative care and chronic condition management.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-amber-600 font-semibold">₹500/hour</span>
+                        <button class="bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Caregiver Card 3 -->
+                <div class="caregiver-card bg-white rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 animate-slide-up p-6" style="animation-delay: 200ms">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://via.placeholder.com/50" alt="Dr. Kumar" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-bold text-gray-900">Dr. Anil Kumar</h4>
+                                <p class="text-sm text-gray-600">General Physician</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">
+                            79% Match
+                        </div>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 mb-4">
+                        <i class="fas fa-map-marker-alt text-amber-500 mr-1"></i>
+                        <span>3.5 km away</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mb-4">Specializes in family medicine and preventive healthcare.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-amber-600 font-semibold">₹600/session</span>
+                        <button class="bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Disclaimer -->
+    <section class="py-12 bg-amber-50/50 border-t border-amber-100">
+        <div class="container-mobile">
+            <div class="bg-amber-100/80 backdrop-blur-sm border border-amber-200 rounded-3xl p-8 shadow-lg">
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-shield-alt text-amber-600 text-xl mt-1 flex-shrink-0 w-7 h-7"></i>
+                    <div>
+                        <h4 class="font-semibold text-amber-800 text-xl mb-3">
+                            Medical Disclaimer
+                        </h4>
+                        <p class="text-sm text-amber-700 leading-relaxed">
+                            This AI-generated advice is for informational purposes only and should not replace professional medical consultation.
+                        </p>
+                        <p class="text-sm text-amber-700 mt-3 leading-relaxed">
+                            In case of emergency, please call 102 or visit the nearest hospital immediately.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container-mobile text-center">
+            <p class="text-sm font-medium">
+                &copy; 2025 AyurSutra Team Blue Boon. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to show search results when the Diagnose button is clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagnoseButton = document.querySelector('.btn-primary');
+            const searchResults = document.getElementById('search-results');
+            
+            diagnoseButton.addEventListener('click', function() {
+                searchResults.classList.remove('hidden');
+                searchResults.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // New Search button functionality
+            const newSearchButton = document.querySelector('.btn-outline');
+            if (newSearchButton) {
+                newSearchButton.addEventListener('click', function() {
+                    searchResults.classList.add('hidden');
+                    document.querySelector('input[type="text"]').value = '';
+                    document.querySelector('section.py-16').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -88,7 +88,7 @@
   }
 
   .btn-primary {
-    @apply bg-health-primary hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
@@ -96,15 +96,15 @@
   }
 
   .btn-outline {
-    @apply border border-health-primary text-health-primary hover:bg-health-primary hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply border border-green-500 text-green-500 hover:bg-green-500 hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
 
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-health-primary focus:border-transparent;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent;
   }
 
   .search-bar {
-    @apply w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-health-primary focus:border-transparent placeholder-gray-500;
+    @apply w-full px-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent placeholder-gray-500;
   }
 }
 
@@ -173,7 +173,7 @@
 }
 
 .progress-fill {
-  @apply bg-health-primary h-2 rounded-full transition-all duration-300 ease-out;
+  @apply bg-green-500 h-2 rounded-full transition-all duration-300 ease-out;
 }
 
 /* Video call styles */
@@ -194,7 +194,7 @@
 }
 
 .video-control-btn.active {
-  @apply bg-health-primary bg-opacity-75;
+  @apply bg-green-500 bg-opacity-75;
 }
 
 .video-control-btn.danger {
@@ -249,7 +249,7 @@
 }
 
 .checklist-checkbox {
-  @apply w-5 h-5 text-health-primary border-gray-300 rounded focus:ring-health-primary;
+  @apply w-5 h-5 text-green-500 border-gray-300 rounded focus:ring-green-500;
 }
 
 .checklist-item.completed {
@@ -266,7 +266,7 @@
 }
 
 .language-option.active {
-  @apply bg-white text-health-primary shadow-sm;
+  @apply bg-white text-green-500 shadow-sm;
 }
 
 .language-option.inactive {
@@ -292,11 +292,11 @@
 
 /* Loading spinner */
 .spinner {
-  @apply animate-spin rounded-full h-8 w-8 border-b-2 border-health-primary;
+  @apply animate-spin rounded-full h-8 w-8 border-b-2 border-green-500;
 }
 
 .spinner-small {
-  @apply animate-spin rounded-full h-4 w-4 border-b-2 border-health-primary;
+  @apply animate-spin rounded-full h-4 w-4 border-b-2 border-green-500;
 }
 
 /* Toast notification overrides */
@@ -338,7 +338,7 @@
 
 /* Focus styles for keyboard navigation */
 .focus-visible:focus {
-  @apply outline-none ring-2 ring-health-primary ring-offset-2;
+  @apply outline-none ring-2 ring-green-500 ring-offset-2;
 }
 
 /* Print styles */
@@ -380,6 +380,28 @@
 
 .text-responsive-xl {
   @apply text-xl md:text-2xl;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 /* Safe area insets for mobile devices */

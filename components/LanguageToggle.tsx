@@ -1,32 +1,31 @@
-'use client';
-
-import { Globe } from 'lucide-react';
-import { useLanguage } from './LanguageProvider';
-import { SupportedLanguage } from '@/lib/lingoClient';
+"use client";
+import { useLanguage } from '@/components/LanguageProvider';
 
 export function LanguageToggle() {
   const { currentLanguage, setLanguage } = useLanguage();
 
-  const languages: { code: SupportedLanguage; name: string; nativeName: string }[] = [
-    { code: 'en', name: 'English', nativeName: 'English' },
-    { code: 'hi', name: 'Hindi', nativeName: 'हिंदी' },
-  ];
-
   return (
-    <div className="language-toggle">
-      <Globe className="w-4 h-4 text-gray-500" />
-      {languages.map((lang) => (
-        <button
-          key={lang.code}
-          onClick={() => setLanguage(lang.code)}
-          className={`language-option ${
-            currentLanguage === lang.code ? 'active' : 'inactive'
-          }`}
-          aria-label={`Switch to ${lang.name}`}
-        >
-          {lang.nativeName}
-        </button>
-      ))}
+    <div className="flex items-center space-x-2">
+      <button
+        onClick={() => setLanguage('en')}
+        className={`px-3 py-1 text-sm font-medium rounded-lg transition-colors ${
+          currentLanguage === 'en'
+            ? 'text-gray-700 bg-gray-100'
+            : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
+        }`}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => setLanguage('hi')}
+        className={`px-3 py-1 text-sm font-medium rounded-lg transition-colors ${
+          currentLanguage === 'hi'
+            ? 'text-gray-700 bg-gray-100'
+            : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50'
+        }`}
+      >
+        HI
+      </button>
     </div>
   );
 }

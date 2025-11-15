@@ -1,25 +1,16 @@
-'use client';
-
-import { useUser } from '@clerk/nextjs';
+"use client";
 import { useEffect } from 'react';
-import { syncClerkUser } from '@/lib/supabaseClient';
+import { useEnhancedSupabase } from '@/components/EnhancedSupabaseProvider';
 
 export function UserSync() {
-  const { user, isLoaded } = useUser();
+  const { user } = useEnhancedSupabase();
 
   useEffect(() => {
-    const syncUser = async () => {
-      if (isLoaded && user) {
-        try {
-          await syncClerkUser(user);
-        } catch (error) {
-          console.error('Error syncing user:', error);
-        }
-      }
-    };
+    if (user) {
+      // Sync user data if needed
+      console.log('User synced:', user.id);
+    }
+  }, [user]);
 
-    syncUser();
-  }, [user, isLoaded]);
-
-  return null; // This component doesn't render anything
+  return null;
 }

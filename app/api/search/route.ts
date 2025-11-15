@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { searchCaregivers, searchCaregiversEnhanced } from '@/lib/supabaseClient';
-// Using local Docker model instead of Gemini
-const LOCAL_MODEL_URL = process.env.LOCAL_MODEL_URL || 'http://localhost:12434';
-const LOCAL_MODEL_NAME = process.env.LOCAL_MODEL_NAME || 'llama2';
+
+// Local LLM Configuration
+const LLM_BASE_URL = process.env.LLM_BASE_URL || 'http://localhost:12434/engines/llama.cpp/v1';
+const LLM_MODEL = process.env.LLM_MODEL || 'ai/gemma3';
 
 interface SearchResult {
   id: string;
@@ -48,50 +49,70 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
   return R * c;
 }
 
-// Extract symptoms and medical conditions from user query using AI
+// Extract symptoms and medical conditions from user query using Local LLM
 async function extractMedicalInfo(query: string, language: string = 'en') {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-    
-    const prompt = `
-You are a medical AI assistant. Analyze the following user query and extract medical information.
+    const prompt = `You are a medical AI assistant. Analyze the user query and extract medical information.
 
 User query: "${query}"
 Language: ${language}
 
-Based on the symptoms and conditions mentioned, determine:
-1. Symptoms: Extract all symptoms mentioned
-2. Medical conditions: Identify potential medical conditions
-3. Specializations: Which medical specializations would be most relevant
-4. Caregiver type: What type of healthcare provider is needed
-5. Urgency: How urgent is this medical concern
+Extract:
+1. Symptoms mentioned
+2. Medical specializations needed
+3. Caregiver type required
+4. Urgency level
 
-Common specializations include:
-- Cardiology (heart problems, chest pain, heart attack)
-- Neurology (headache, migraine, stroke, seizures)
-- Orthopedics (bone fracture, joint pain, back pain, sports injury)
-- Pediatrics (child fever, baby care, vaccination)
-- Gastroenterology (stomach pain, acidity, digestive issues)
-- Dermatology (skin rash, acne, skin allergy)
-- ENT (ear pain, throat pain, nose bleeding)
-- Gynecology (pregnancy, menstrual problems, PCOS)
-- Psychiatry (depression, anxiety, stress)
-- Endocrinology (diabetes, thyroid, hormone imbalance)
+Common specializations:
+- Cardiology (heart, chest pain, heart attack)
+- Neurology (headache, migraine, stroke)
+- Orthopedics (bone, joint pain, back pain)
+- Pediatrics (child, baby, vaccination)
+- Gastroenterology (stomach, digestive)
+- Dermatology (skin, rash, acne)
+- ENT (ear, throat, nose)
+- Gynecology (pregnancy, PCOS)
+- Psychiatry (depression, anxiety)
+- Endocrinology (diabetes, thyroid)
 
-Respond ONLY in valid JSON format:
+Respond ONLY with valid JSON:
 {
   "symptoms": ["symptom1", "symptom2"],
-  "conditions": ["condition1", "condition2"],
-  "specializations": ["specialization1", "specialization2"],
-  "caregiver_type": "doctor|nurse|therapist|maid",
+  "conditions": ["condition1"],
+  "specializations": ["specialization1"],
+  "caregiver_type": "doctor|nurse|therapist",
   "urgency": "low|medium|high",
   "confidence": 0.85
-}
-`;
+}`;
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
+    const response = await fetch(`${LLM_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: LLM_MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a medical AI assistant. Respond only with valid JSON.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.2,
+        max_tokens: 500
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`LLM API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data.choices?.[0]?.message?.content;
     
     if (!text) throw new Error('No AI response');
 
@@ -232,26 +253,46 @@ async function generateRecommendationReason(
   language: string = 'en'
 ): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-    
-    const prompt = `
-You are a healthcare AI assistant. Explain in 1-2 sentences why this caregiver is a good match for the user's query.
+    const prompt = `Explain briefly why this caregiver matches the user's query.
 
-User query: "${query}"
-Extracted symptoms: ${medicalInfo.symptoms.join(', ')}
+Query: "${query}"
+Symptoms: ${medicalInfo.symptoms.join(', ')}
 Caregiver: ${caregiver.first_name} ${caregiver.last_name}
 Type: ${caregiver.type}
 Specializations: ${caregiver.specializations?.join(', ') || 'General'}
 Experience: ${caregiver.experience_years} years
 Rating: ${caregiver.rating}/5
 
-Respond in ${language === 'hi' ? 'Hindi' : 'English'} in a helpful, reassuring tone.
-Keep it concise (max 50 words). Provide only the explanation text, no additional formatting.
-`;
+Respond in ${language === 'hi' ? 'Hindi' : 'English'} in 1-2 sentences (max 50 words).`;
 
-    const result = await model.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
+    const response = await fetch(`${LLM_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: LLM_MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a helpful medical assistant. Be concise and reassuring.'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.3,
+        max_tokens: 100
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`LLM API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data.choices?.[0]?.message?.content;
 
     return text?.trim() || (language === 'hi' 
       ? 'आपकी आवश्यकताओं के लिए उपयुक्त'
@@ -368,9 +409,18 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Query is required' }, { status: 400 });
     }
 
-    // Check if Gemini API key is configured
-    if (!process.env.GOOGLE_GEMINI_API_KEY) {
-      console.warn('Gemini API key not configured, using fallback search');
+    // Check if Local LLM is available
+    try {
+      const healthCheck = await fetch(`${LLM_BASE_URL}/models`, { 
+        method: 'GET',
+        signal: AbortSignal.timeout(2000) // 2 second timeout
+      });
+      if (!healthCheck.ok) {
+        console.warn('Local LLM not available, using fallback search');
+        return await fallbackSearch(query, language, lat, lon);
+      }
+    } catch (error) {
+      console.warn('Local LLM health check failed, using fallback search');
       return await fallbackSearch(query, language, lat, lon);
     }
 

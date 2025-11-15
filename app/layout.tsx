@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import './globals.css';
-import { ClerkProvider } from '@clerk/nextjs';
+import EnhancedSupabaseProvider from '@/components/EnhancedSupabaseProvider';
 import { LanguageProvider } from '@/components/LanguageProvider';
 import { UserSync } from '@/components/UserSync';
+import { AuthValidation } from '@/components/AuthValidation';
+import { UserProfileHandler } from '@/components/UserProfileHandler';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -71,9 +73,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={inter.className}>
-        <ClerkProvider>
+        <EnhancedSupabaseProvider>
           <LanguageProvider>
             <UserSync />
+            <AuthValidation />
+            <UserProfileHandler />
             <div className="min-h-screen bg-gray-50">
               {/* Main Content */}
               <main className="pb-16 md:pb-0">
@@ -103,7 +107,7 @@ export default function RootLayout({
               />
             </div>
           </LanguageProvider>
-        </ClerkProvider>
+        </EnhancedSupabaseProvider>
       </body>
     </html>
   );

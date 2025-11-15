@@ -265,6 +265,11 @@ export const UI_TRANSLATIONS: Record<string, Translation> = {
   },
 
   // Medical disclaimers
+  'disclaimer.title': {
+    key: 'disclaimer.title',
+    en: 'Medical Disclaimer',
+    hi: 'चिकित्सा अस्वीकरण'
+  },
   'disclaimer.aiAdvice': {
     key: 'disclaimer.aiAdvice',
     en: 'This AI-generated advice is for informational purposes only and should not replace professional medical consultation.',
@@ -274,6 +279,248 @@ export const UI_TRANSLATIONS: Record<string, Translation> = {
     key: 'disclaimer.emergency',
     en: 'In case of emergency, please call 102 or visit the nearest hospital immediately.',
     hi: 'आपातकाल की स्थिति में, कृपया 102 पर कॉल करें या तुरंत निकटतम अस्पताल जाएं।'
+  },
+
+  // Hero section
+  'hero.title': {
+    key: 'hero.title',
+    en: 'Find the Right Healthcare Professional',
+    hi: 'सही स्वास्थ्य सेवा पेशेवर खोजें'
+  },
+  'hero.subtitle': {
+    key: 'hero.subtitle',
+    en: 'Describe your symptoms and get AI-powered recommendations for doctors, nurses, and caregivers near you.',
+    hi: 'अपने लक्षणों का वर्णन करें और अपने आस-पास के डॉक्टरों, नर्सों और देखभालकर्ताओं के लिए AI-संचालित सिफारिशें प्राप्त करें।'
+  },
+
+  // Features
+  'features.aiSearch': {
+    key: 'features.aiSearch',
+    en: 'AI-Powered Search',
+    hi: 'AI-संचालित खोज'
+  },
+  'features.aiSearchDesc': {
+    key: 'features.aiSearchDesc',
+    en: 'Get personalized caregiver recommendations based on your symptoms and location.',
+    hi: 'अपने लक्षणों और स्थान के आधार पर व्यक्तिगत देखभालकर्ता सिफारिशें प्राप्त करें।'
+  },
+  'features.secure': {
+    key: 'features.secure',
+    en: 'Secure & Private',
+    hi: 'सुरक्षित और निजी'
+  },
+  'features.secureDesc': {
+    key: 'features.secureDesc',
+    en: 'Your medical data is encrypted end-to-end and stored securely.',
+    hi: 'आपका चिकित्सा डेटा एंड-टू-एंड एन्क्रिप्टेड है और सुरक्षित रूप से संग्रहीत है।'
+  },
+  'features.multilingual': {
+    key: 'features.multilingual',
+    en: 'Bilingual Support',
+    hi: 'द्विभाषी समर्थन'
+  },
+  'features.multilingualDesc': {
+    key: 'features.multilingualDesc',
+    en: 'Available in English and Hindi for better accessibility.',
+    hi: 'बेहतर पहुंच के लिए अंग्रेजी और हिंदी में उपलब्ध।'
+  },
+
+  // Search results
+  'search.results': {
+    key: 'search.results',
+    en: 'Search Results',
+    hi: 'खोज परिणाम'
+  },
+  'search.newSearch': {
+    key: 'search.newSearch',
+    en: 'New Search',
+    hi: 'नई खोज'
+  },
+  'search.noResultsDesc': {
+    key: 'search.noResultsDesc',
+    en: 'Try adjusting your search terms or enable location for better results.',
+    hi: 'बेहतर परिणामों के लिए अपनी खोज शर्तों को समायोजित करने या स्थान सक्षम करने का प्रयास करें।'
+  },
+  'search.tryAgain': {
+    key: 'search.tryAgain',
+    en: 'Try Again',
+    hi: 'फिर से कोशिश करें'
+  },
+
+  // Error messages
+  'error.locationNotSupported': {
+    key: 'error.locationNotSupported',
+    en: 'Location not supported',
+    hi: 'स्थान समर्थित नहीं है'
+  },
+  'error.locationDenied': {
+    key: 'error.locationDenied',
+    en: 'Location access denied',
+    hi: 'स्थान पहुंच अस्वीकृत'
+  },
+
+  // Success messages
+  'success.locationEnabled': {
+    key: 'success.locationEnabled',
+    en: 'Location enabled',
+    hi: 'स्थान सक्षम'
+  },
+
+  // Demo translations
+  'demo.title': {
+    key: 'demo.title',
+    en: 'Translation System Demo',
+    hi: 'अनुवाद प्रणाली डेमो'
+  },
+  'demo.selectLanguage': {
+    key: 'demo.selectLanguage',
+    en: 'Select Language:',
+    hi: 'भाषा चुनें:'
+  },
+  'demo.staticTranslations': {
+    key: 'demo.staticTranslations',
+    en: 'Static UI Translations',
+    hi: 'स्थिर UI अनुवाद'
+  },
+  'demo.formattedContent': {
+    key: 'demo.formattedContent',
+    en: 'Localized Formatting',
+    hi: 'स्थानीयकृत स्वरूपण'
+  },
+  'demo.currency': {
+    key: 'demo.currency',
+    en: 'Currency',
+    hi: 'मुद्रा'
+  },
+  'demo.date': {
+    key: 'demo.date',
+    en: 'Date',
+    hi: 'दिनांक'
+  },
+  'demo.time': {
+    key: 'demo.time',
+    en: 'Time',
+    hi: 'समय'
+  },
+  'demo.dynamicTranslation': {
+    key: 'demo.dynamicTranslation',
+    en: 'Dynamic Text Translation',
+    hi: 'गतिशील पाठ अनुवाद'
+  },
+  'demo.enterText': {
+    key: 'demo.enterText',
+    en: 'Enter text to translate...',
+    hi: 'अनुवाद के लिए पाठ दर्ज करें...'
+  },
+  'demo.translate': {
+    key: 'demo.translate',
+    en: 'Translate',
+    hi: 'अनुवाद करें'
+  },
+  'demo.result': {
+    key: 'demo.result',
+    en: 'Translation Result:',
+    hi: 'अनुवाद परिणाम:'
+  },
+  'demo.management': {
+    key: 'demo.management',
+    en: 'Translation Management',
+    hi: 'अनुवाद प्रबंधन'
+  },
+  'demo.viewAllTranslations': {
+    key: 'demo.viewAllTranslations',
+    en: 'View All Translations',
+    hi: 'सभी अनुवाद देखें'
+  },
+  'demo.description': {
+    key: 'demo.description',
+    en: 'This demo shows how the translation system works in your healthcare app. Switch between English and Hindi to see all content automatically translate.',
+    hi: 'यह डेमो दिखाता है कि आपके स्वास्थ्य सेवा ऐप में अनुवाद प्रणाली कैसे काम करती है। सभी सामग्री को स्वचालित रूप से अनुवादित देखने के लिए अंग्रेजी और हिंदी के बीच स्विच करें।'
+  },
+  'demo.howToUse': {
+    key: 'demo.howToUse',
+    en: 'How to Use Translations in Your App',
+    hi: 'अपने ऐप में अनुवाद का उपयोग कैसे करें'
+  },
+  'demo.step1': {
+    key: 'demo.step1',
+    en: 'Import the hook',
+    hi: 'हुक आयात करें'
+  },
+  'demo.step2': {
+    key: 'demo.step2',
+    en: 'Use in component',
+    hi: 'कंपोनेंट में उपयोग करें'
+  },
+  'demo.step3': {
+    key: 'demo.step3',
+    en: 'Translate text',
+    hi: 'पाठ का अनुवाद करें'
+  },
+  'demo.step4': {
+    key: 'demo.step4',
+    en: 'Add new translations',
+    hi: 'नए अनुवाद जोड़ें'
+  },
+  'demo.step4Desc': {
+    key: 'demo.step4Desc',
+    en: 'Add new translation keys to lib/lingoClient.ts in the UI_TRANSLATIONS object.',
+    hi: 'UI_TRANSLATIONS ऑब्जेक्ट में lib/lingoClient.ts में नई अनुवाद कुंजी जोड़ें।'
+  },
+  'demo.features': {
+    key: 'demo.features',
+    en: 'Translation Features',
+    hi: 'अनुवाद सुविधाएं'
+  },
+  'demo.feature1': {
+    key: 'demo.feature1',
+    en: 'Static UI text translation',
+    hi: 'स्थिर UI पाठ अनुवाद'
+  },
+  'demo.feature2': {
+    key: 'demo.feature2',
+    en: 'Dynamic content translation via API',
+    hi: 'API के माध्यम से गतिशील सामग्री अनुवाद'
+  },
+  'demo.feature3': {
+    key: 'demo.feature3',
+    en: 'Localized number, date, and currency formatting',
+    hi: 'स्थानीयकृत संख्या, दिनांक और मुद्रा स्वरूपण'
+  },
+  'demo.feature4': {
+    key: 'demo.feature4',
+    en: 'Language-specific fonts and styling',
+    hi: 'भाषा-विशिष्ट फ़ॉन्ट और स्टाइलिंग'
+  },
+  'demo.feature5': {
+    key: 'demo.feature5',
+    en: 'Persistent language preference',
+    hi: 'स्थायी भाषा प्राथमिकता'
+  },
+  'demo.supported': {
+    key: 'demo.supported',
+    en: 'Supported Languages',
+    hi: 'समर्थित भाषाएं'
+  },
+  'demo.addTestData': {
+    key: 'demo.addTestData',
+    en: 'Add Test Caregivers',
+    hi: 'परीक्षण देखभालकर्ता जोड़ें'
+  },
+  'auth.profileCreated': {
+    key: 'auth.profileCreated',
+    en: 'Welcome! Your profile has been set up.',
+    hi: 'स्वागत है! आपकी प्रोफ़ाइल सेट अप हो गई है।'
+  },
+  'auth.profileIncomplete': {
+    key: 'auth.profileIncomplete',
+    en: 'Please complete your profile information.',
+    hi: 'कृपया अपनी प्रोफ़ाइल जानकारी पूरी करें।'
+  },
+  'auth.profileError': {
+    key: 'auth.profileError',
+    en: 'Failed to set up your profile. Please try again.',
+    hi: 'आपकी प्रोफ़ाइल सेट अप करने में विफल। कृपया पुनः प्रयास करें।'
   }
 };
 
