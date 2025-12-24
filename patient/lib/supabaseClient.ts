@@ -58,6 +58,7 @@ export interface Caregiver {
   years_of_experience?: number;
   qualification?: string;
   specialization?: string;
+  profile_image_url?: string;
 }
 
 export interface Patient {

@@ -135,29 +135,19 @@ export function CaregiverCard({
           ...style,
         }}
       >
-        {/* Service Radius - Top Right */}
-        {caregiver.service_radius_km && (
-          <div className="absolute top-2 right-2 z-10">
-            <div className="flex items-center bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium shadow-md">
-              <MapPin className="w-2.5 h-2.5 mr-0.5" />
-              {caregiver.service_radius_km} km
-            </div>
-          </div>
-        )}
-
         {/* Badges */}
         {(showMatchScore || showDistance) && (
-          <div className="absolute top-2 left-2 right-14 flex justify-between items-start z-10">
+          <div className="absolute top-2 left-2 right-2 flex justify-between items-start z-10">
             {showMatchScore && matchScore && (
               <div className="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-medium shadow-md">
-                {Math.round(matchScore)}%
+                {Math.round(matchScore)}% Match
               </div>
             )}
             {showDistance &&
               distance !== undefined &&
               distance !== null &&
               distance > 0 && (
-                <div className="flex items-center bg-white/95 backdrop-blur-sm text-gray-700 px-2 py-1 rounded-full text-xs font-medium shadow-md">
+                <div className="flex items-center bg-white/95 backdrop-blur-sm text-gray-700 px-2 py-1 rounded-full text-xs font-medium shadow-md ml-auto">
                   <MapPin className="w-2.5 h-2.5 mr-0.5" />
                   {distance.toFixed(1)} km
                 </div>
@@ -166,8 +156,8 @@ export function CaregiverCard({
         )}
 
         {/* Avatar */}
-        <div className="flex items-center justify-center bg-white rounded-full shadow-lg mt-6 relative">
-          <div className="w-20 h-20 border-3 border-white rounded-full overflow-hidden relative">
+        <div className="flex items-center justify-center bg-white rounded-full shadow-lg mt-8 relative">
+          <div className="w-24 h-24 border-4 border-white rounded-full overflow-hidden relative">
             {hasValidImage ? (
               <img
                 src={imageUrl}
@@ -186,74 +176,88 @@ export function CaregiverCard({
               />
             ) : null}
             <div className={`fallback-avatar absolute inset-0 w-full h-full bg-green-500 flex items-center justify-center ${hasValidImage ? "hidden" : ""}`}>
-              <div className="w-14 h-14 rounded-full bg-green-600 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-8 h-8 text-yellow-300 fill-current">
+              <div className="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-yellow-300 fill-current">
                   <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9M15 10.5V19L13.5 17.5V10.5M10.5 10.5V19L9 17.5V10.5M9 7.5L3 7V9L9 9.5" />
                 </svg>
               </div>
             </div>
           </div>
           {caregiver.is_verified && (
-            <div className="absolute -top-1 -right-1 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center shadow-lg">
+            <div className="absolute -top-1 -right-1 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
               <Shield className="w-4 h-4 text-white" />
             </div>
           )}
         </div>
 
-        {/* Title */}
-        <div className="mt-3 text-center px-2 w-full">
-          <h3 className="text-base font-semibold text-gray-800 mb-0.5 leading-tight">
+        {/* Title & Details */}
+        <div className="mt-4 text-center px-4 w-full">
+          <h3 className="text-lg font-bold text-gray-900 mb-1 leading-tight line-clamp-1">
             {caregiverName}
           </h3>
-          <p className="text-emerald-700 text-xs font-semibold mb-1">
+          <p className="text-emerald-700 text-sm font-semibold mb-1.5">
             {caregiverType}
             {experience ? ` • ${experience} Years` : ""}
           </p>
+          
           {caregiver.qualification && (
-            <p className="text-gray-500 text-[10px] line-clamp-1" title={caregiver.qualification}>
+            <p className="text-gray-500 text-xs mb-2 line-clamp-1" title={caregiver.qualification}>
               {caregiver.qualification}
             </p>
           )}
-          {/* Clinic Name */}
-          {caregiver.clinic_name && (
-            <div className="flex items-center justify-center gap-1 mt-1 text-gray-700">
-              <Building2 className="w-3 h-3" />
-              <span className="text-xs font-medium line-clamp-1">{caregiver.clinic_name}</span>
-            </div>
-          )}
-          {/* City/Location */}
-          {caregiver.city && (
-            <div className="flex items-center justify-center gap-1 text-gray-500 mt-0.5">
-              <MapPin className="w-3 h-3" />
-              <span className="text-[10px]">{caregiver.address_line1 ? (caregiver.address_line1.length > 20 ? caregiver.city : `${caregiver.address_line1}, ${caregiver.city}`) : caregiver.city}</span>
-            </div>
+
+          {/* Clinic & Location */}
+          <div className="flex flex-col gap-1 items-center justify-center text-gray-600 mb-3">
+             {caregiver.clinic_name && (
+                <div className="flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span className="text-xs font-medium line-clamp-1">{caregiver.clinic_name}</span>
+                </div>
+              )}
+              {caregiver.city && (
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span className="text-xs line-clamp-1">
+                    {caregiver.city}{caregiver.state ? `, ${caregiver.state}` : ''}
+                  </span>
+                </div>
+              )}
+          </div>
+
+          {/* Bio Snippet */}
+          {caregiver.bio && (
+             <p className="text-[11px] text-gray-500 italic line-clamp-2 leading-relaxed px-2 mb-2">
+                "{caregiver.bio}"
+             </p>
           )}
         </div>
 
         {/* Rating */}
         {caregiver.rating && (
-          <div className="flex items-center justify-center mt-2 space-x-1">
+          <div className="flex items-center justify-center mb-3 space-x-1">
             {[1, 2, 3, 4, 5].map((star) => (
-              <span key={star} className={`text-lg ${star <= Math.floor(caregiver.rating || 0) ? "text-green-500" : "text-gray-300"}`}>★</span>
+              <span key={star} className={`text-lg transition-colors ${star <= Math.floor(caregiver.rating || 0) ? "text-yellow-400" : "text-gray-200"}`}>★</span>
             ))}
-            <span className="text-gray-600 text-sm ml-2">
-              {caregiver.rating.toFixed(1)} ({caregiver.total_reviews || 0})
+            <span className="text-gray-600 text-xs font-medium ml-1">
+              ({caregiver.total_reviews || 0})
             </span>
           </div>
         )}
 
         {/* Fees and Availability */}
-        <div className="mt-3 px-2 w-full space-y-2">
+        <div className="mt-auto px-4 w-full space-y-3 mb-4">
           {/* Consultation Fees */}
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-2 shadow-sm">
-            <div className="flex items-center justify-between mb-1">
-              <div className="flex items-center space-x-1">
-                <DollarSign className="w-4 h-4 text-green-600" />
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-inner border border-white/50">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                    <DollarSign className="w-3.5 h-3.5 text-green-600" />
+                </div>
                 <span className="text-xs font-semibold text-gray-700">
                   Consultation
                 </span>
               </div>
-              <span className="text-sm font-bold text-green-600">
+              <span className="text-sm font-bold text-green-700">
                 ₹{caregiver.consultation_fee || 0}
               </span>
             </div>
