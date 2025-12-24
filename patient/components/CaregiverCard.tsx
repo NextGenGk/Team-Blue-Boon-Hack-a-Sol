@@ -247,6 +247,7 @@ export function CaregiverCard({
         {/* Fees and Availability */}
         <div className="mt-auto px-4 w-full space-y-3 mb-4">
           {/* Consultation Fees */}
+          {!!caregiver.consultation_fee && caregiver.consultation_fee > 0 && (
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-inner border border-white/50">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -258,7 +259,7 @@ export function CaregiverCard({
                 </span>
               </div>
               <span className="text-sm font-bold text-green-700">
-                ₹{caregiver.consultation_fee || 0}
+                ₹{caregiver.consultation_fee}
               </span>
             </div>
             {caregiver.home_visit_fee && (
@@ -275,6 +276,7 @@ export function CaregiverCard({
               </div>
             )}
           </div>
+          )}
 
           {/* Languages */}
           {caregiver.languages && caregiver.languages.length > 0 && (
