@@ -1,0 +1,22 @@
+/* SearchBar icon color overrides */
+.search-bar-icons svg {
+  fill: transparent !important;
+  color: transparent !important;
+}
+
+/* Alternative: Remove all colors from SearchBar SVGs */
+.search-bar svg {
+  fill: none !important;
+  stroke: transparent !important;
+}
+
+/* Remove gray colors specifically */
+.search-bar .text-gray-500,
+.search-bar .text-gray-400 {
+  color: transparent !important;
+}
+
+/* Remove red color from listening state */
+.search-bar .text-red-500 {
+  color: transparent !important;
+}

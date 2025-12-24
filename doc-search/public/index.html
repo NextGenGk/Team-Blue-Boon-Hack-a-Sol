@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyurSutra - AI Doctor Search</title>
+    <meta name="description" content="Find the perfect doctor using natural language AI-powered search">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="12" fill="url(#gradient)"/>
+                        <path d="M20 10L25 15L20 20L15 15L20 10Z" fill="white"/>
+                        <path d="M20 20L25 25L20 30L15 25L20 20Z" fill="white" opacity="0.7"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#667eea"/>
+                                <stop offset="100%" stop-color="#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>AyurSutra</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#home">Home</a>
+                    <a href="#specializations">Specializations</a>
+                    <a href="#about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="badge-icon">🤖</span>
+                    <span>AI-Powered Search</span>
+                </div>
+                <h2 class="hero-title">Find Your Perfect Doctor</h2>
+                <p class="hero-subtitle">Describe your symptoms or health concerns in natural language. Our AI will find the right specialist for you.</p>
+                
+                <!-- Search Box -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            class="search-input" 
+                            placeholder="e.g., I have chest pain and breathing issues..."
+                            autocomplete="off"
+                        >
+                        <button id="searchBtn" class="search-btn">
+                            <span class="btn-text">Search</span>
+                            <span class="btn-loader" style="display: none;">
+                                <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+                                    <circle class="spinner-circle" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <!-- Quick Suggestions -->
+                    <div class="suggestions">
+                        <span class="suggestion-label">Try:</span>
+                        <button class="suggestion-chip" data-query="I need a heart specialist for chest pain">Heart specialist</button>
+                        <button class="suggestion-chip" data-query="Looking for skin doctor for acne treatment">Skin problems</button>
+                        <button class="suggestion-chip" data-query="Need diabetes checkup and management">Diabetes care</button>
+                        <button class="suggestion-chip" data-query="Pregnancy checkup and consultation">Pregnancy care</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results Section -->
+    <section class="results-section" id="resultsSection" style="display: none;">
+        <div class="container">
+            <!-- Search Info -->
+            <div class="search-info" id="searchInfo"></div>
+
+            <!-- Results Grid -->
+            <div class="results-grid" id="resultsGrid"></div>
+
+            <!-- No Results -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>No doctors found</h3>
+                <p>Try adjusting your search terms or browse our specializations</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specializations Section -->
+    <section class="specializations-section" id="specializationsSection">
+        <div class="container">
+            <h2 class="section-title">Browse by Specialization</h2>
+            <div class="specializations-grid" id="specializationsGrid">
+                <div class="specialization-skeleton"></div>
+                <div class="specialization-skeleton"></div>
+                <div class="specialization-skeleton"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose AyurSutra?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Search</h3>
+                    <p>Describe your symptoms naturally. Our AI understands and finds the right specialist.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Verified Doctors</h3>
+                    <p>All doctors are verified professionals with proven qualifications and experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💊</div>
+                    <h3>AI Prescriptions</h3>
+                    <p>Get AI-generated prescriptions reviewed by qualified doctors for accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Online & Offline</h3>
+                    <p>Choose between video consultations or in-person visits at the clinic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AyurSutra. AI-Powered Healthcare Platform.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
